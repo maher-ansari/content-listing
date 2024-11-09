@@ -90,7 +90,7 @@ const ContentGrid = () => {
         ))}
       </div>
       {loading && <div className="loading">Loading...</div>}
-      {!hasMore && <div className="end-of-data">No more content available.</div>} {/* End of data message */}
+      {!hasMore && <div className="end-of-data">The content server is temporarily unavailable. We’re working on fixing it.</div>} {/* End of data message */}
     </div>
   );
 };

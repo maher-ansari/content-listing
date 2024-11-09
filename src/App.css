@@ -27,6 +27,7 @@ body {
 .content-item-title {
   font-size: 16px;
   text-align: left;
+  color: #a3a0a0;
 }
 
 .loading {
@@ -101,5 +102,4 @@ body {
 .end-of-data {
   text-align: center;
   padding: 20px;
-  color: #ff6f61;
 }

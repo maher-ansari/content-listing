@@ -1,4 +1,4 @@
-// src/services/api.js
+// src/api.js
 import axios from "axios";
 
 // Base URL for the API

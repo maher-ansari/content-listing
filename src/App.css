@@ -1,0 +1,172 @@
+/* src/App.css */
+body {
+  background-color: #171717;
+  color: white;
+  font-family: "Titillium Web", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.content-grid {
+  padding: 10px;
+}
+
+/* .search-bar {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #2e2e2e;
+  color: white;
+  border: none;
+} */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.content-item {
+  padding: 4px;
+  text-align: center;
+}
+
+.content-item-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 3;
+}
+
+.content-item-title {
+  font-size: 16px;
+  text-align: left;
+}
+
+.loading {
+  text-align: center;
+  margin-top: 20px;
+}
+
+
+
+
+/* Back Button Styles */
+.back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Search Input and Button Styles */
+.search-input-container {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-left: 10px;
+}
+
+.search-button {
+  background: none;
+  border: none;
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}
+
+.search-button img {
+  width: 20px;
+  height: 20px;
+}
+
+
+/* Global Styles */
+body {
+  font-family: 'Titillium Web', sans-serif;
+  background-color: #171717;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+/* Content Grid Styles */
+.content-grid {
+  padding: 10px;
+  margin-top: 50px; /* Offset for the fixed search bar */
+}
+
+/* Fixed Search Bar Container */
+.search-bar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-image: url('https://test.create.diagnal.com/images/nav_bar.png');
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 8px;
+  z-index: 1000; /* Ensure it's on top of other elements */
+}
+
+/* Back Button Styles */
+.back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.back-button img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Search Input Container */
+.search-input-container {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-left: 10px;
+}
+
+.search-input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  color: #fff;
+}
+
+.search-button {
+  background: none;
+  border: none;
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}
+
+.search-button img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Content Grid Styles */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+ 
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+}
+
+.end-of-data {
+  text-align: center;
+  padding: 20px;
+  color: #ff6f61;
+}

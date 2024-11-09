@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { fetchData, fetchImage } from "./api"; // Assuming fetchData handles the API request
+import { fetchData, fetchImage } from "../api"; // Assuming fetchData handles the API request
 import ContentItem from "./ContentItem";
+import SearchBar from "./SearchBar";
 
 const ContentGrid = () => {
   const [data, setData] = useState([]); // Holds the content data
@@ -82,23 +83,7 @@ const ContentGrid = () => {
 
   return (
     <div className="content-grid">
-       <div className="search-bar-container">
-        <button className="back-button" onClick={() => history.goBack()}>
-          <img src="https://test.create.diagnal.com/images/Back.png" alt="Back" />
-        </button>
-        <div className="search-input-container">
-          <input
-            type="text"
-            placeholder="Romantic Comedy"
-            value={searchQuery}
-            onChange={handleSearch}
-            className="search-input"
-          />
-          <button className="search-button">
-            <img src="https://test.create.diagnal.com/images/search.png" alt="Search" />
-          </button>
-        </div>
-      </div>
+    <SearchBar value={searchQuery} onChange={handleSearch}/>
       <div className="grid">
         {filteredData.map((item, index) => (
           <ContentItem key={index} title={item.name} image={item.image} />

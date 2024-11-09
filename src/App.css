@@ -7,19 +7,6 @@ body {
   padding: 0;
 }
 
-.content-grid {
-  padding: 10px;
-}
-
-/* .search-bar {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  background-color: #2e2e2e;
-  color: white;
-  border: none;
-} */
-
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -47,47 +34,6 @@ body {
   margin-top: 20px;
 }
 
-
-
-
-/* Back Button Styles */
-.back-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-/* Search Input and Button Styles */
-.search-input-container {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  position: relative;
-  margin-left: 10px;
-}
-
-.search-button {
-  background: none;
-  border: none;
-  position: absolute;
-  right: 10px;
-  cursor: pointer;
-}
-
-.search-button img {
-  width: 20px;
-  height: 20px;
-}
-
-
-/* Global Styles */
-body {
-  font-family: 'Titillium Web', sans-serif;
-  background-color: #171717;
-  color: white;
-  margin: 0;
-  padding: 0;
-}
 
 /* Content Grid Styles */
 .content-grid {
@@ -150,19 +96,6 @@ body {
 .search-button img {
   width: 20px;
   height: 20px;
-}
-
-/* Content Grid Styles */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
- 
-}
-
-.loading {
-  text-align: center;
-  padding: 20px;
 }
 
 .end-of-data {

@@ -1,9 +1,10 @@
 // src/App.js
 import React from "react";
 import "./App.css";
-import ContentGrid from "./ContentGrid";
+import ContentGrid from "./componets/ContentGrid";
 
 const App = () => {
+  console.log('in app')
   return (
     <div className="App">
       <ContentGrid />

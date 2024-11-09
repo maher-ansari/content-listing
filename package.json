@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "keywords": [],
-  "main": "src/index.js",
+  "main": "src/index.jsx",
   "private": true,
-  "homepage": "https://maher-ansari.github.io/react-project",
+  "homepage": "./",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

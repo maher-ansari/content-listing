@@ -86,7 +86,7 @@ const ContentGrid = () => {
     <SearchBar value={searchQuery} onChange={handleSearch}/>
       <div className="grid">
         {filteredData.map((item, index) => (
-          <ContentItem key={index} title={item.name} image={item.image} />
+         item.image && <ContentItem key={index} title={item.name} image={item.image} />
         ))}
       </div>
       {loading && <div className="loading">Loading...</div>}

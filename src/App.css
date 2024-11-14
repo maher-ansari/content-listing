@@ -1,7 +1,7 @@
 /* src/App.css */
 body {
   background-color: #171717;
-  color: white;
+  color: #FFFFFF;
   font-family: "Titillium Web", sans-serif;
   margin: 0;
   padding: 0;
@@ -10,6 +10,7 @@ body {
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr); 
   gap: 10px;
 }
 
@@ -27,7 +28,6 @@ body {
 .content-item-title {
   font-size: 16px;
   text-align: left;
-  color: #a3a0a0;
 }
 
 .loading {
@@ -40,6 +40,20 @@ body {
 .content-grid {
   padding: 10px;
   margin-top: 50px; /* Offset for the fixed search bar */
+  height: 100vh; /* or any specific height you want */
+  overflow-y: scroll; /* Allow vertical scrolling */
+  overflow-x: hidden;
+}
+.content-grid::-webkit-scrollbar {
+  width: 0px; /* Hides the scrollbar */
+}
+
+.content-grid::-webkit-scrollbar-thumb {
+  background: transparent; /* Prevent showing the thumb */
+}
+
+.content-grid::-webkit-scrollbar-track {
+  background: transparent; /* Prevent showing the track */
 }
 
 /* Fixed Search Bar Container */
@@ -84,6 +98,14 @@ body {
   border: none;
   font-size: 20px;
   color: #fff;
+  outline: none;  /* Removes the default outline on focus */
+  border: none;   /* Removes the border on focus */
+}
+.search-input::placeholder {
+  color: #fff; /* Change this color to whatever you want */
+  opacity: 1;  /* Optional: Controls the opacity of the placeholder text */
+  font-weight: 300;
+  font-family: "Titillium Web", sans-serif;
 }
 
 .search-button {

@@ -121,7 +121,8 @@ body {
   height: 20px;
 }
 
-.end-of-data {
+.end-of-data ,.no-data{
   text-align: center;
   padding: 20px;
 }
+.no-data{margin-top: 60px;}

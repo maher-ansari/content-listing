@@ -1,98 +1,102 @@
-import React, { useState, useEffect } from "react";
-import { fetchData, fetchImage } from "../api"; // Assuming fetchData handles the API request
+import React, { useState, useEffect, useRef } from "react";
+ import { fetchData } from "../api"; // Assuming fetchData handles the API request
 import ContentItem from "./ContentItem";
 import SearchBar from "./SearchBar";
 
-const ContentGrid = () => {
-  const [data, setData] = useState([]); // Holds the content data
-  const [loading, setLoading] = useState(false); // Tracks if a request is ongoing
-  const [page, setPage] = useState(1); // Tracks the current page to fetch
-  const [searchQuery, setSearchQuery] = useState(""); // The search query
-  const [hasMore, setHasMore] = useState(true); // Flag to track if there's more data to load
+const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
 
-  // Effect to load initial data when the component mounts
   useEffect(() => {
-    if (!loading && hasMore) {
-      console.log('in if .....')
-      loadData(page); // Fetch data for the first page
-    }
-  }, [page]); // Trigger effect whenever the page state changes (but not loading)
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
 
-  const loadData = async (pageNumber) => {
-    setLoading(true); // Set loading state to true
-    console.log('in load')
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
+
+const ContentGrid =()=>{
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]); 
+  const [page, setPage] = useState(1); 
+  const [hasMore, setHasMore] = useState(true);
+  const [searchQuery, setSearchQuery] = useState(""); 
+  const elementRef= useRef(null);
+
+  const loadData = async () => {
+    setLoading(true);
     try {
-      const newData = await fetchData(pageNumber); // Fetch data for the page
+      const newData = await fetchData(page); // Fetch data for the page
 
       if (newData?.page?.["content-items"]?.content?.length > 0) {
-        // If data exists, format and append it to the existing data
         const formattedData = newData.page["content-items"].content.map((item) => ({
           ...item,
           image: item["poster-image"],
         }));
 
-        setData((prevData) => [...prevData, ...formattedData]); // Append new data to the existing list
-
-        // If less than the expected number of items (i.e., end of data), stop further loading
-        if (newData.page["content-items"].content.length < 10) {
-          setHasMore(false); // No more pages to load
-        }
+        setData((prevData) => [...prevData, ...formattedData]); // Append new data to existing list
+        setPage((prevPage) => prevPage + 1); 
+       
       } else {
-        setHasMore(false); // Stop if no content was returned
+        setHasMore(false)
+     
       }
-      
     } catch (error) {
-      console.error("Error loading data:", error);
-      setHasMore(false); // Stop loading in case of error
+      setHasMore(false)
+       // Stop loading in case of an error
     } finally {
-      console.log('in finall')
-      setLoading(false); // Reset loading state
+      setLoading(false)
     }
   };
 
-  // Handle scroll event for infinite scrolling
-  const handleScroll = () => {
-    if (loading || !hasMore) return; // Don't load more if already loading or no more data
-
-    const scrollPosition = window.innerHeight + window.scrollY; // Current scroll position
-    const scrollHeight = document.documentElement.scrollHeight; // Total scrollable height
-
-    // Check if we are at the bottom of the page
-    if (scrollPosition >= scrollHeight - 100) {
-      setPage((prevPage) => prevPage + 1); // Trigger the loading of the next page
+  const onInterSection=(entries)=>{
+    const firstElement = entries[0]
+    if(firstElement.isIntersecting && hasMore && !loading){
+        setTimeout(()=>{
+            loadData(); 
+        },500)
     }
-  };
+  }
+  useEffect(()=>{
+    const observer= new IntersectionObserver(onInterSection);
+    if(observer && elementRef.current){
+      observer.observe(elementRef.current)
+    }
+    return ()=>{
+      if(observer){
+        observer.disconnect()
+      }
+    }
+  },[data])
 
-  // Handle search query changes
-  const handleSearch = (e) => {
-    setSearchQuery(e.target.value); // Update the search query
-  };
-
+  const debouncedSearchQuery = useDebounce(searchQuery, 500);
   // Filter data based on the search query (search is case-insensitive)
   const filteredData = data.filter((item) =>
-    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    item.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
   );
 
-  // Set up the scroll event listener and cleanup on unmount
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [loading, hasMore]); // Only reattach the scroll listener when loading or hasMore changes
 
   return (
+    <>
     <div className="content-grid">
-    <SearchBar value={searchQuery} onChange={handleSearch}/>
+      <SearchBar value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)} />
+      {filteredData.length> 0?
       <div className="grid">
-        {filteredData.map((item, index) => (
-         item.image && <ContentItem key={index} title={item.name} image={item.image} />
+       { filteredData.map((item, index) => (
+          <ContentItem key={index} title={item.name} image={item.image} />
         ))}
-      </div>
-      {loading && <div className="loading">Loading...</div>}
-      {!hasMore && <div className="end-of-data">The content server is temporarily unavailable. We’re working on fixing it.</div>} {/* End of data message */}
+        </div>
+        :<div className="no-data">No more content available.</div>}
+      {loadData && <div className="loading" style={{ display: searchQuery.length ===0 ? 'block' : 'none' }}ref={elementRef}></div>}
+      {!hasMore && <div className="end-of-data">No more content available.</div>} 
     </div>
-  );
-};
-
+    </>
+  )
+}
 export default ContentGrid;
+
+
